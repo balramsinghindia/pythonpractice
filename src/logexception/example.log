@@ -1,0 +1,11 @@
+DEBUG:root:This message should go to the log file
+DEBUG:root:This message should go to the log file
+DEBUG:root:This message should go to the log file
+DEBUG:root:This message should go to the log file
+DEBUG:root:first log
+DEBUG:root:This message should go to the log file
+CRITICAL:root:filename not exist
+DEBUG:root:This message should go to the log file
+CRITICAL:root:first log
+DEBUG:root:This message should go to the log file
+CRITICAL:root:first log hi
