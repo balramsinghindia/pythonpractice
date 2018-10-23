@@ -2,6 +2,7 @@
 Insert code here for all the transformations you are going to do
 """
 import pandas as pd
+import numpy as np
 
 # •	Read the data/flights.csv dataset into Python
 df = pd.read_csv("../../data/flights.csv")
@@ -40,12 +41,34 @@ for x in chunks:
 
 
 # •	concatenate back the chucks produced above into 1 dataset
-
+concadinatedList = pd.concat([chunks[0], chunks[1], chunks[2], chunks[3]])
+print('concadination')
+print(concadinatedList)
 
 # •	get the slice of the dataset that is only relevant to the airline AA
-
-aa = df[df.AIRLINE == 'AA']
+airlineaa = df.loc[df['AIRLINE'] == 'AA']
 print('dataset that is only relevant to the airline A is')
-print(len(aa.index))
+print(len(airlineaa.index))
+
+# get the slice of the dataset where delay is <10 and destination is PBI
+delay10 = df[(df.WEATHER_DELAY > 10) & (df.DESTINATION_AIRPORT == 'PBI')]
+print('delay greater than 10 and destination is PBI')
+print(delay10)
+
+# fill the blanks in the AIR_SYSTEM_DELAY column with the average of the column itself
+print(df['AIR_SYSTEM_DELAY'].isna().sum())
+df['AIR_SYSTEM_DELAY'] = df['AIR_SYSTEM_DELAY'].fillna(df['AIR_SYSTEM_DELAY'].mean())
+print("----------------------")
+print(df['AIR_SYSTEM_DELAY'].isna().sum())
+
+# Create a column "has_A", which contains 1 if the airline name contains the letter 'A', 0 otherwise
+df['has_A'] = ['1' if 'A' in x else '0' for x in df['AIRLINE']]
+print('has_A')
+print(df.has_A)
+
+# get a random sample of the rows in the dataframe
+samplerow = df.sample(n=3)
+print('samplerow')
+print(samplerow)
 
 
