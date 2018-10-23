@@ -72,3 +72,6 @@ print('samplerow')
 print(samplerow)
 
 
+df['route'] = df['ORIGIN_AIRPORT'].astype(str)+'_'+df['DESTINATION_AIRPORT']
+print('route')
+print(df.route)
