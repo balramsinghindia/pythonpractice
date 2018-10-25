@@ -55,11 +55,6 @@ delay10 = df[(df.WEATHER_DELAY > 10) & (df.DESTINATION_AIRPORT == 'PBI')]
 print('delay greater than 10 and destination is PBI')
 print(delay10)
 
-# fill the blanks in the AIR_SYSTEM_DELAY column with the average of the column itself
-print(df['AIR_SYSTEM_DELAY'].isna().sum())
-df['AIR_SYSTEM_DELAY'] = df['AIR_SYSTEM_DELAY'].fillna(df['AIR_SYSTEM_DELAY'].mean())
-print("----------------------")
-print(df['AIR_SYSTEM_DELAY'].isna().sum())
 
 # Create a column "has_A", which contains 1 if the airline name contains the letter 'A', 0 otherwise
 df['has_A'] = ['1' if 'A' in x else '0' for x in df['AIRLINE']]
@@ -78,3 +73,9 @@ print(samplerow)
 df['route'] = df['ORIGIN_AIRPORT'].astype(str)+'_'+df['DESTINATION_AIRPORT']
 print('route')
 print(df.route)
+
+# fill the blanks in the AIR_SYSTEM_DELAY column with the average of the column itself
+print(df['AIR_SYSTEM_DELAY'].isna().sum())
+df['AIR_SYSTEM_DELAY'] = df['AIR_SYSTEM_DELAY'].fillna(df['AIR_SYSTEM_DELAY'].mean())
+print("----------------------")
+print(df['AIR_SYSTEM_DELAY'].isna().sum())
