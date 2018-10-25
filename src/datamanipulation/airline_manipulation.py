@@ -2,10 +2,10 @@
 Insert code here for all the transformations you are going to do
 """
 import pandas as pd
-import numpy as np
 
 # •	Read the data/flights.csv dataset into Python
 df = pd.read_csv("../../data/flights.csv")
+# df = pd.read_csv("./data/flights.csv")
 
 # •	remove the column "DAY_OF_WEEK"
 print(list(df))
@@ -41,7 +41,7 @@ for x in chunks:
 
 
 # •	concatenate back the chucks produced above into 1 dataset
-concadinatedList = pd.concat([chunks[0], chunks[1], chunks[2], chunks[3]])
+concadinatedList = pd.concat(chunks)
 print('concadination')
 print(concadinatedList)
 
@@ -71,7 +71,10 @@ samplerow = df.sample(n=3)
 print('samplerow')
 print(samplerow)
 
+# binarise the column "ORIGIN_AIRPORT"
+# df["code"] = df["code"].apply(lambda x: x in mylist)
 
+# Create a "Route" column by merging departure airport and destination airport
 df['route'] = df['ORIGIN_AIRPORT'].astype(str)+'_'+df['DESTINATION_AIRPORT']
 print('route')
 print(df.route)
