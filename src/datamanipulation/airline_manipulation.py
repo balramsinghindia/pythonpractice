@@ -2,6 +2,7 @@
 Insert code here for all the transformations you are going to do
 """
 import pandas as pd
+import numpy as np
 
 # •	Read the data/flights.csv dataset into Python
 df = pd.read_csv("../../data/flights.csv")
@@ -79,3 +80,32 @@ print(df['AIR_SYSTEM_DELAY'].isna().sum())
 df['AIR_SYSTEM_DELAY'] = df['AIR_SYSTEM_DELAY'].fillna(df['AIR_SYSTEM_DELAY'].mean())
 print("----------------------")
 print(df['AIR_SYSTEM_DELAY'].isna().sum())
+
+# Remove outliers for 'departure_delay' - remove rows in excess of 3 standard deviations from me]
+#------------------------------------------------------------------------------
+# accept a dataframe, remove outliers, return cleaned data in a new dataframe
+# see http://www.itl.nist.gov/div898/handbook/prc/section1/prc16.htm
+#------------------------------------------------------------------------------
+def remove_outlier(df_in, col_name):
+    q1 = df_in[col_name].quantile(0.25)
+    q3 = df_in[col_name].quantile(0.75)
+    iqr = q3-q1 #Interquartile range
+    fence_low  = q1-1.5*iqr
+    fence_high = q3+1.5*iqr
+    df_out = df_in.loc[(df_in[col_name] > fence_low) & (df_in[col_name] < fence_high)]
+    print(df_out)
+    return df_out
+
+remove_outlier(df, 'DEPARTURE_DELAY')
+
+# Calculate the mean "Departure_delay" for each airline, over the whole dataset
+delay_airline = df[['AIRLINE', 'DEPARTURE_DELAY']].groupby('AIRLINE').mean()
+print(delay_airline)
+
+# The number of flights leaving before 12pm for each airline
+
+# total_12_airline = df[['AIRLINE', 'DEPARTURE_TIME']].groupby('AIRLINE').count()
+total_12_airline = df[df['AIRLINE'] > 0].groupby([df.index.hour, 'DEPARTURE_TIME'])
+print('total_12_airline')
+
+print(total_12_airline)
