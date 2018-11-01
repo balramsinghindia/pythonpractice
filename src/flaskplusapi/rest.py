@@ -4,6 +4,7 @@ from flask_restplus import Resource, Api
 app = Flask(__name__)
 api = Api(app)
 
+# https://flask-restplus.readthedocs.io/en/stable/quickstart.html#initialization
 @api.route('/hello')
 class HelloWorld(Resource):
     def get(self):
